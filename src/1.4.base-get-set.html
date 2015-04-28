@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="demo">
+  <input type="text" vm-duplex="firstName"/>
+  {{firstName}} <br/>
+  <input type="text" vm-duplex="lastName"/>
+  {{lastName}} <br/>
+  <input type="text" vm-duplex="fullName"/>
+  {{fullName}} <br/>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.dim.js"></script>
+<script>
+  $.dim('demo', {
+    firstName: 'Steven',
+    lastName: 'Kerr',
+    fullName: {
+      get: function () {
+        return this.firstName + ' ' + this.lastName;
+      },
+      set: function (value) {
+        var parts = value.split(' ');
+        this.firstName = parts[0];
+        this.lastName = (parts.length > 1) ? parts[1] : '';
+      }
+    }
+  });
+</script>
+</body>
+</html>

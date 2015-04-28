@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head><meta charset=UTF-8><title></title></head><body><div id=test>{{title}}</div><div id=test1>{{title}}</div><div id=test2>{{title}}</div><div id=test3>{{title}}</div><script src=js/require.js></script><script>
+  require(['./js/jquery', './js/jquery.dim'], function($) {
+    $.dim('test', {
+      title: 'this is title --- object'
+    });
+    $.dim('test1', function(require, exports, module) {
+      module.exports = {
+        title: 'this is title --- module exports'
+      }
+    });
+
+    $.dim('test2', function(require, exports, module) {
+      return {
+        title: 'this is title --- return'
+      }
+    });
+
+    $.dim('test3', function(require, exports, module) {
+      exports.title = 'this is title --- exports';
+    });
+
+  });
+</script></body></html>

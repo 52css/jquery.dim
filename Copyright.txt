@@ -1,0 +1,4 @@
+/**
+ * Created by kerr on 2015/2/15.
+ * Version: <%= version %>
+ */

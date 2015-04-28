@@ -1,0 +1,117 @@
+<!DOCTYPE html><html><head><meta charset=UTF-8><title></title><style>
+    .test {
+
+    }
+    .mask {
+      background: #000;
+      filter:alpha(opacity=30);  /*支持 IE 浏览器*/
+      -moz-opacity:0.30; /*支持 FireFox 浏览器*/
+      opacity:0.30;  /*支持 Chrome, Opera, Safari 等浏览器*/
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      text-decoration: none;
+    }
+    .header {
+      background-color: #000000;
+      padding: 0 10px;
+      height: 50px;
+      line-height: 50px;
+    }
+    .inline {
+      overflow: hidden;
+    }
+    .inline li{
+      float: left;
+      /*margin-left: -1px;*/
+      /*border-left: 1px solid #fff;*/
+    }
+    .btn {
+      display: inline-block;
+      *display: inline;
+      *zoom: 1;
+      padding: 0 15px;
+    }
+    .btn-link {
+      color: #787D82;
+    }
+    .btn-link:hover, .btn-link.active {
+      background-color: #363c41;
+      color: #fff;
+    }
+  </style></head><body><div id=btns class=header><ul class=inline><li vm-repeat=btns><a data-rel=button vm-data="{action:$item.action, $index:$index}" vm-class="{active: $item.selected}" vm-click=click(this) class="btn btn-link">{{$item.show}}</a></li></ul></div><div id=mask class=mask vm-if=!!show></div><div id=alert><div vm-if=!!show>this is alert.</div></div><script src=js/jquery.js></script><script src=js/jquery.dim.js></script><script>
+
+  $.dim('mask', {
+    show: false,
+    $watch: {
+      show: function(newVal) {
+        if (newVal === true) {
+          var h = Math.max($(window).outerHeight(true), $('body').outerHeight(true));
+          $('#mask').height(h - 50);
+        }
+      }
+    }
+  });
+
+  $.dim('alert', ['mask'], function(r, exports, module) {
+    var maskVm = r('mask');
+    module.exports = {
+      show: false,
+      $watch: {
+        show: function(newVal) {
+          maskVm.show = newVal;
+        }
+      }
+    }
+  });
+
+
+  $.dim('btns', ['alert'], function(r, exports, module) {
+    var alertVm = r('alert');
+    module.exports = {
+      btns: [{
+        selected: true,
+        show: '显示alert',
+        action: function() {
+          alertVm.show = true;
+        }
+      }, {
+        selected: false,
+        show: '隐藏alert',
+        action: function() {
+          alertVm.show = false;
+        }
+      }],
+      click: function(t) {
+        var action = $(t).data('action'),
+          vm = module.exports,
+          $index = $(t).data('$index');
+
+        $.each(vm.btns, function(i) {
+          vm.btns[i].selected = i == $index;
+        });
+        if (action) {
+          action();
+        }
+        return false;
+      },
+      init: function() {
+        $.each(module.exports.btns, function(i, obj) {
+          if (obj.selected === true) {
+            obj.action();
+          }
+        });
+      }
+    }
+  });
+
+</script></body></html>

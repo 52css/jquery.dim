@@ -1,0 +1,8 @@
+<!DOCTYPE html><html><head><meta charset=UTF-8><title></title></head><body><div id=test><ul><li>aaa</li><li vm-repeat=myArray>{{$item}}</li><li>bbb</li></ul><ul><li>开始</li><li vm-repeat=arr1>{{$item}}</li><li>结束</li></ul></div><script src=js/require.js></script><script>
+  require(['./js/jquery', './js/jquery.dim'], function($) {
+    $.dim('test', {
+      myArray: [1, 2, 3],
+      arr1: [1, 2, 3]
+    });
+  });
+</script></body></html>

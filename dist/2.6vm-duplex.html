@@ -1,0 +1,7 @@
+<!DOCTYPE html><html><head><meta charset=UTF-8><title></title></head><body><div id=test><input type=text vm-duplex=firstName> {{firstName}}</div><script src=js/require.js></script><script>
+  require(['./js/jquery', './js/jquery.dim'], function($) {
+    $.dim('test', {
+      firstName: 'Steven'
+    });
+  });
+</script></body></html>

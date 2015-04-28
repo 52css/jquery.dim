@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head><meta charset=UTF-8><title></title></head><body><div id=test><input type=button value=按钮 vm-data={title:title} vm-click=click(this)></div><script src=js/require.js></script><script>
+  require(['./js/jquery', './js/jquery.dim'], function($) {
+    $.dim('test', function(r, exports, module) {
+      module.exports = {
+        title: 'this is title',
+        click: function(t) {
+          var $this = $(t);
+          alert($this.data('title'));
+        }
+      };
+    });
+  });
+</script></body></html>

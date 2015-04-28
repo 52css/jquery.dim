@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="test">
+  aa {{id}}
+  <div></div>
+  aa{{id}}
+  <ol>
+    <li>11</li>
+    <li>22</li>
+  </ol>
+  {{id}} - {{aaa}} - {{bbb}}
+  <ul>
+    <li>aaa</li>
+    <li>bbb</li>
+  </ul>
+  {{id}}{{aaa}}{{bbb}}
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.dim.js"></script>
+<script>
+  $.dim('test', {
+    id: 123,
+    aaa: 'aaa',
+    bbb: 'bbb'
+  });
+</script>
+</body>
+</html>
